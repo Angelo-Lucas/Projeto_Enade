@@ -21,4 +21,5 @@ public class TipoQuestaoDAO extends GenericDAO<Tipoquestao>{
         }
         return tipoQuestaoDAO;
     }
+    
 }

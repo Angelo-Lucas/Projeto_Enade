@@ -7,6 +7,7 @@ package com.mycompany.enade.dao;
 
 import com.mycompany.enade.model.EntidadeBase;
 import com.mycompany.enade.util.PersistenceUtil;
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -17,18 +18,12 @@ import javax.persistence.criteria.CriteriaQuery;
  *
  * @author angelo.lucas
  */
-public abstract class GenericDAO<T extends EntidadeBase> {
+public abstract class GenericDAO<T extends EntidadeBase> implements Serializable{
     
     private static EntityManager em = getEM();
     
     public static EntityManager getEM(){
         return PersistenceUtil.getEntityManager();
-    }
-    
-    public static GenericDAO genericDAO;
-    
-    
-    protected GenericDAO(){
     }
     
     public T buscar(Class<T> t, int id){

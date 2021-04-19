@@ -67,7 +67,7 @@ public class TipoQuestaoResource {
         Tipoquestao tp = new Tipoquestao();
         try{
             tp.setIdTipoQuestao(tipoQuestao.getId());
-        tp.setNomeTipoQuestao(tipoQuestao.getNomeTipoQuestao());
+            tp.setNomeTipoQuestao(tipoQuestao.getNomeTipoQuestao());
             TipoQuestaoDAO.getInstance().persistir(tipoQuestao);
             return "Registro salvo!";
         }catch (Exception e){

@@ -25,7 +25,7 @@ public class PersistenceUtil {
         if(FACTORY == null){
             try{
                 FACTORY = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
-            }catch (Exception e){
+            }catch (Throwable e){
                 System.out.println("A criacao o do EntityManagerFactory falhou: " + e);
                 throw new ExceptionInInitializerError(e);
             }
@@ -48,7 +48,7 @@ public class PersistenceUtil {
         if(em != null){
             em.close();
         }
-        MANAGER.remove();
+        MANAGER.set(null);
     }
     
     public static Session getSession(){
