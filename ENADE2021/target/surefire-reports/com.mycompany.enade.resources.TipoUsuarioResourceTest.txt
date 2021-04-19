@@ -1,0 +1,57 @@
+-------------------------------------------------------------------------------
+Test set: com.mycompany.enade.resources.TipoUsuarioResourceTest
+-------------------------------------------------------------------------------
+Tests run: 6, Failures: 6, Errors: 0, Skipped: 0, Time elapsed: 2.559 sec <<< FAILURE!
+com.mycompany.enade.resources.TipoUsuarioResourceTest.testAlterar()  Time elapsed: 0.039 sec  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <> but was: <Erro ao cadastrar.null>
+	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:55)
+	at org.junit.jupiter.api.AssertionUtils.failNotEqual(AssertionUtils.java:62)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:182)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:177)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1124)
+	at com.mycompany.enade.resources.TipoUsuarioResourceTest.testAlterar(TipoUsuarioResourceTest.java:125)
+
+com.mycompany.enade.resources.TipoUsuarioResourceTest.testCadastrar()  Time elapsed: 0 sec  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <> but was: <Erro ao cadastrar.null>
+	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:55)
+	at org.junit.jupiter.api.AssertionUtils.failNotEqual(AssertionUtils.java:62)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:182)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:177)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1124)
+	at com.mycompany.enade.resources.TipoUsuarioResourceTest.testCadastrar(TipoUsuarioResourceTest.java:110)
+
+com.mycompany.enade.resources.TipoUsuarioResourceTest.testTodosTipoUsuario()  Time elapsed: 2.493 sec  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <null> but was: <[]>
+	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:55)
+	at org.junit.jupiter.api.AssertionUtils.failNotEqual(AssertionUtils.java:62)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:182)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:177)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1124)
+	at com.mycompany.enade.resources.TipoUsuarioResourceTest.testTodosTipoUsuario(TipoUsuarioResourceTest.java:51)
+
+com.mycompany.enade.resources.TipoUsuarioResourceTest.testGetTipoUsuario()  Time elapsed: 0.006 sec  <<< FAILURE!
+org.opentest4j.AssertionFailedError: The test case is a prototype.
+	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:39)
+	at org.junit.jupiter.api.Assertions.fail(Assertions.java:109)
+	at com.mycompany.enade.resources.TipoUsuarioResourceTest.testGetTipoUsuario(TipoUsuarioResourceTest.java:68)
+
+com.mycompany.enade.resources.TipoUsuarioResourceTest.testExcluir_Integer()  Time elapsed: 0.001 sec  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <> but was: <Erro ao excluir!null>
+	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:55)
+	at org.junit.jupiter.api.AssertionUtils.failNotEqual(AssertionUtils.java:62)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:182)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:177)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1124)
+	at com.mycompany.enade.resources.TipoUsuarioResourceTest.testExcluir_Integer(TipoUsuarioResourceTest.java:81)
+
+com.mycompany.enade.resources.TipoUsuarioResourceTest.testExcluir_0args()  Time elapsed: 0.019 sec  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <> but was: <Erro ao excluir!An exception occurred while creating a query in EntityManager: 
+Exception Description: Problem compiling [delete from T]. 
+[12, 13] The abstract schema type 'T' is unknown.>
+	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:55)
+	at org.junit.jupiter.api.AssertionUtils.failNotEqual(AssertionUtils.java:62)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:182)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:177)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1124)
+	at com.mycompany.enade.resources.TipoUsuarioResourceTest.testExcluir_0args(TipoUsuarioResourceTest.java:95)
+
