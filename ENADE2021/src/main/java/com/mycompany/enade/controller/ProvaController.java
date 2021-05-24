@@ -11,8 +11,12 @@ import java.awt.event.ActionEvent;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import org.primefaces.event.CellEditEvent;
+import org.primefaces.event.RowEditEvent;
 
 /**
  *
@@ -25,18 +29,41 @@ public class ProvaController implements Serializable{
     List<Prova> provas = new ArrayList<Prova>();
     
     public ProvaController(){
-        provas = ProvaDAO.getInstance().buscarTodas(Prova.class);
         prova = new Prova();
+        provas = ProvaDAO.getInstance().buscarTodas(Prova.class);
     }
     
-    public void gravar(Prova prova){
+    public void gravar(){
         ProvaDAO.getInstance().persistir(prova);
         provas = ProvaDAO.getInstance().buscarTodas(Prova.class);
     }
     
-    public void remover(Prova prova){
+    public void remover(){
         ProvaDAO.getInstance().remover(Prova.class, prova.getId());
         provas = ProvaDAO.getInstance().buscarTodas(Prova.class);
+    }
+    
+    public void onRowEdit(RowEditEvent<Prova> event) {
+        ProvaDAO.getInstance().atualizar(prova);
+        provas = ProvaDAO.getInstance().buscarTodas(Prova.class);
+        prova = new Prova();
+        FacesMessage msg = new FacesMessage("Editado", event.getObject().getId().toString());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+    public void onRowCancel(RowEditEvent<Prova> event) {
+        FacesMessage msg = new FacesMessage("Cancelado", event.getObject().getId().toString());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+    public void onCellEdit(CellEditEvent event) {
+        Object oldValue = event.getOldValue();
+        Object newValue = event.getNewValue();
+
+        if (newValue != null && !newValue.equals(oldValue)) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
     }
 
     public Prova getProva() {

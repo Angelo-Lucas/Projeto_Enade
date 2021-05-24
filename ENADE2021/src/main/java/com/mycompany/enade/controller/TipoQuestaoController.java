@@ -11,8 +11,12 @@ import java.awt.event.ActionEvent;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import org.primefaces.event.CellEditEvent;
+import org.primefaces.event.RowEditEvent;
 
 /**
  *
@@ -25,18 +29,20 @@ public class TipoQuestaoController implements Serializable{
     List<Tipoquestao> tipoQuestoes = new ArrayList<Tipoquestao>();
     
     public TipoQuestaoController(){
+        tipoQuestao = new Tipoquestao();
+        tipoQuestoes = TipoQuestaoDAO.getInstance().buscarTodas(Tipoquestao.class);
+    }
+    
+    public void gravar(){
+        TipoQuestaoDAO.getInstance().persistir(tipoQuestao);
         tipoQuestoes = TipoQuestaoDAO.getInstance().buscarTodas(Tipoquestao.class);
         tipoQuestao = new Tipoquestao();
     }
     
-    public void gravar(Tipoquestao tipoQuestao){
-        TipoQuestaoDAO.getInstance().persistir(tipoQuestao);
-        tipoQuestoes = TipoQuestaoDAO.getInstance().buscarTodas(Tipoquestao.class);
-    }
-    
-    public void remover(Tipoquestao tipoQuestao){
+    public void remover(){
         TipoQuestaoDAO.getInstance().remover(Tipoquestao.class, tipoQuestao.getId());
         tipoQuestoes = TipoQuestaoDAO.getInstance().buscarTodas(Tipoquestao.class);
+        tipoQuestao = new Tipoquestao();
     }
 
     public Tipoquestao getTipoQuestao() {
@@ -55,5 +61,27 @@ public class TipoQuestaoController implements Serializable{
         this.tipoQuestoes = tipoQuestoes;
     }
 
+    public void onRowEdit(RowEditEvent<Tipoquestao> event) {
+        TipoQuestaoDAO.getInstance().atualizar(tipoQuestao);
+        tipoQuestoes = TipoQuestaoDAO.getInstance().buscarTodas(Tipoquestao.class);
+        tipoQuestao = new Tipoquestao();
+        FacesMessage msg = new FacesMessage("Editado", event.getObject().getId().toString());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+    public void onRowCancel(RowEditEvent<Tipoquestao> event) {
+        FacesMessage msg = new FacesMessage("Cancelado", event.getObject().getId().toString());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+    public void onCellEdit(CellEditEvent event) {
+        Object oldValue = event.getOldValue();
+        Object newValue = event.getNewValue();
+
+        if (newValue != null && !newValue.equals(oldValue)) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+    }
     
 }

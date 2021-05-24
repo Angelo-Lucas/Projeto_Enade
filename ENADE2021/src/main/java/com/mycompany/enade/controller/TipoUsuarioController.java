@@ -26,16 +26,16 @@ public class TipoUsuarioController implements Serializable{
     List<Tipousuario> tipoUsuarios = new ArrayList<Tipousuario>();
     
     public TipoUsuarioController(){
-        tipoUsuarios = TipoUsuarioDAO.getInstance().buscarTodas(Tipousuario.class);
         tipoUsuario = new Tipousuario();
+        tipoUsuarios = TipoUsuarioDAO.getInstance().buscarTodas(Tipousuario.class);
     }
     
-    public void gravar(Tipousuario tipoUsuario){
+    public void gravar(){
         TipoUsuarioDAO.getInstance().persistir(tipoUsuario);
         tipoUsuarios = TipoUsuarioDAO.getInstance().buscarTodas(Tipousuario.class);
     }
     
-    public void remover(Tipousuario tipoUsuario){
+    public void remover(){
         TipoUsuarioDAO.getInstance().remover(Tipousuario.class, tipoUsuario.getId());
         tipoUsuarios = TipoUsuarioDAO.getInstance().buscarTodas(Tipousuario.class);
     }

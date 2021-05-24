@@ -74,7 +74,7 @@ public class Questao implements EntidadeBase {
     @Column(name = "questaoCorreta")
     private String questaoCorreta;
     @Column(name = "estadoQuestao")
-    private Short estadoQuestao;
+    private Boolean estadoQuestao;
     @ManyToMany(mappedBy = "questaoList")
     private List<Prova> provaList;
     @JoinColumn(name = "TipoQuestao_idTipoQuestao", referencedColumnName = "idTipoQuestao")
@@ -158,11 +158,11 @@ public class Questao implements EntidadeBase {
         this.questaoCorreta = questaoCorreta;
     }
 
-    public Short getEstadoQuestao() {
+    public Boolean getEstadoQuestao() {
         return estadoQuestao;
     }
 
-    public void setEstadoQuestao(Short estadoQuestao) {
+    public void setEstadoQuestao(Boolean estadoQuestao) {
         this.estadoQuestao = estadoQuestao;
     }
 

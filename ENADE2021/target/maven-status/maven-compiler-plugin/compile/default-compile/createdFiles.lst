@@ -3,13 +3,16 @@ com\mycompany\enade\resources\ProvaResource.class
 com\mycompany\enade\model\Usuario_.class
 com\mycompany\enade\dao\QuestaoDAO.class
 com\mycompany\enade\model\Questao.class
+com\mycompany\enade\converter\QuestaoConverter.class
 com\mycompany\enade\model\Tipoquestao_.class
 com\mycompany\enade\resources\TipoUsuarioResource.class
+com\mycompany\enade\converter\TipoUsuarioConverter.class
 com\mycompany\enade\dao\TipoUsuarioDAO.class
 com\mycompany\enade\dao\UsuarioDAO.class
 com\mycompany\enade\resources\UsuarioResource.class
 com\mycompany\enade\dao\TipoQuestaoDAO.class
 com\mycompany\enade\model\Tipoquestao.class
+com\mycompany\enade\converter\TipoQuestaoConverter.class
 com\mycompany\enade\controller\ProvaController.class
 com\mycompany\enade\dao\ResultadoDAO.class
 com\mycompany\enade\model\EntidadeBase.class
@@ -30,5 +33,6 @@ com\mycompany\enade\controller\TipoQuestaoController.class
 com\mycompany\enade\controller\TipoUsuarioController.class
 com\mycompany\enade\controller\UsuarioController.class
 com\mycompany\enade\model\Resultado.class
+com\mycompany\enade\converter\ProvaConverter.class
 com\mycompany\enade\controller\QuestaoController.class
 com\mycompany\enade\model\Questao_.class

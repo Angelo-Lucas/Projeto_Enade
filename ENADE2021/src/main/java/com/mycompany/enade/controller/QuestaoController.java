@@ -11,8 +11,12 @@ import java.awt.event.ActionEvent;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import org.primefaces.event.CellEditEvent;
+import org.primefaces.event.RowEditEvent;
 
 /**
  *
@@ -25,18 +29,20 @@ public class QuestaoController implements Serializable {
     List<Questao> questoes = new ArrayList<Questao>();
     
     public QuestaoController(){
+        questao = new Questao();
+        questoes = QuestaoDAO.getInstance().buscarTodas(Questao.class);
+    }
+    
+    public void gravar(){
+        QuestaoDAO.getInstance().persistir(questao);
         questoes = QuestaoDAO.getInstance().buscarTodas(Questao.class);
         questao = new Questao();
     }
     
-    public void gravar(Questao questao){
-        QuestaoDAO.getInstance().persistir(questao);
-        questoes = QuestaoDAO.getInstance().buscarTodas(Questao.class);
-    }
-    
-    public void remover(Questao questao){
+    public void remover(){
         QuestaoDAO.getInstance().remover(Questao.class, questao.getId());
         questoes = QuestaoDAO.getInstance().buscarTodas(Questao.class);
+        questao = new Questao();
     }
 
     public Questao getQuestao() {
@@ -55,5 +61,18 @@ public class QuestaoController implements Serializable {
         this.questoes = questoes;
     }
     
+    
+    public void onRowEdit(RowEditEvent<Questao> event) {
+        QuestaoDAO.getInstance().atualizar(questao);
+        questoes = QuestaoDAO.getInstance().buscarTodas(Questao.class);
+        questao = new Questao();
+        FacesMessage msg = new FacesMessage("Editado", event.getObject().getId().toString());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+    public void onRowCancel(RowEditEvent<Questao> event) {
+        FacesMessage msg = new FacesMessage("Cancelado", event.getObject().getId().toString());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
     
 }
