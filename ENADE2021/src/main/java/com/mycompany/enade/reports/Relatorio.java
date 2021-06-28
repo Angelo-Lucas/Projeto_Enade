@@ -43,7 +43,7 @@ public class Relatorio implements Serializable{
     }
    
     public void getRelatorio(Relatorio relatorio){
-        stream = this.getClass().getResourceAsStream("./reports/"+relatorio.toString());
+        stream = this.getClass().getResourceAsStream("/reports/"+relatorio.toString());
         Map<String, Object> params = new HashMap<String, Object>();
         baos = new ByteArrayOutputStream();
         
