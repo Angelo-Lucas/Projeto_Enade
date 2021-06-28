@@ -6,11 +6,14 @@
                 xmlns:p="http://primefaces.org/ui">
     
     <ui:define name="content">
-        <h2 class="page-header">Gráfico</h2>
+        <h2 class="page-header">Gráfico de Realização de Provas</h2>
         <br/>
         <h:form id="formPrincipal">  
-            <div class="card">
-                <p:barChart model="#{graficoController.listarResultado()}" style="width: 100%; height: 500px;"/>
+            <div class="pie">
+                <p:chart type="pie" model="#{graficoController.pieModel}"/>
+            </div>
+            <div class="bar">
+                <p:chart type="bar" model="#{graficoController.barModel}"/>
             </div>
         </h:form>
     </ui:define>
