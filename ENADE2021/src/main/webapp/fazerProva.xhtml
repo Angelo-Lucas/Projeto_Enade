@@ -6,105 +6,110 @@
 
     <ui:define name="content">
 
-             <h:form id="form">
+        <br/>
 
-   <p:growl id="growl" sticky="true" showDetail="true"/>
-   
-   <h1>Fazer nova prova:</h1>
-   <p:commandButton icon="ui-icon-plus" value="Nova Prova" onclick="PF('record').show();" /> 
-   
-   <p:dialog header="Novo" widgetVar="record" modal="true" rendered="true">
+        <h2>Usuários</h2>
+
+        <br/>
+
+        
+        <p:dataTable var="valor" value="#{resultadoController.resultados}"
+                     id="tabelaTQ" emptyMessage="Nenhum registro encontrado"
+                     paginatorTemplate="{RowsPerPageDropdown} {CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                     paginator="true" rows="10" rowsPerPageTemplate="5,10,25,50,100,9999">
+
+            <p:column headerText="Código Resultado" sortBy="#{valor.id}" filterBy="#{valor.id}">
+
+                <h:outputText value="#{valor.id}" />
+            </p:column>
+            
+            <p:column headerText="Valor Obtido" sortBy="#{valor.valorObtido}" filterBy="#{valor.valorObtido}">
+
+                <h:outputText value="#{valor.valorObtido}" />
+            </p:column>
+
+            <p:column headerText="Nome Aluno" sortBy="#{valor.usuarioidUsuario.nome}" filterBy="#{valor.usuarioidUsuario.nome}">
+
+                <h:outputText value="#{valor.usuarioidUsuario.nome}" />
+            </p:column>
+            
+            <p:column headerText="Código Prova" sortBy="#{valor.provaidProva}" filterBy="#{valor.provaidProva}">
+
+                <h:outputText value="#{valor.provaidProva}" />
+            </p:column>
+
+        </p:dataTable>
+
+        <br/>
+
+        <p:commandButton icon="ui-icon-plus" value="Novo" onclick="PF('record').show();" />  
+
+        <h:form>
+            <div align="center">
+                <h3>Exportar dados da página</h3>
+
+                <h:commandLink id="excel">
+                    <p:graphicImage name="imagens/exports/excel.png" />
+                    <p:dataExporter type="xls" target="tabelaTQ" fileName="export"/>
+                </h:commandLink>
+
+                <h:commandLink id="xlsx">
+                    <p:graphicImage name="imagens/exports/excelN.png" width="2%" />
+                    <p:dataExporter type="xlsxstream" target="tabelaTQ" fileName="export"/>
+                </h:commandLink>
+
+                <h:commandLink id="pdf">
+                    <p:graphicImage name="imagens/exports/pdf.png" />
+                    <p:dataExporter type="pdf" target="tabelaTQ" fileName="export" />
+                </h:commandLink>
+
+
+                <h:commandLink>
+                    <p:graphicImage name="imagens/exports/csv.png" width="24"/>
+                    <p:dataExporter type="csv" target="tabelaTQ" fileName="export" />
+                </h:commandLink>
+
+                <h:commandLink>
+                    <p:graphicImage  name="imagens/exports/xml.png" width="24"/>
+                    <p:dataExporter type="xml" target="tabelaTQ" fileName="export" />
+                </h:commandLink>
+            </div>
+        </h:form>
+
+        <p:dialog header="Novo" widgetVar="record" modal="true">
             <h:form>
                 <p:panelGrid id="panelRecord" columns="2"> 
-                    Provas:
-                    <p:selectOneMenu id="resp" value="#{questaoController.questao.provaList}" converter="provaConverter">
+                    Valor Obtido:
+                    <p:inputText id="valor" value="#{resultadoController.resultado.valorObtido}" />
+                    Aluno:
+                    <p:selectOneMenu id="aluno" value="#{resultadoController.resultado.usuarioidUsuario}" converter="usuarioConverter">
+                        <f:selectItem itemLabel="Selecione" itemValue="" />
+                        <f:selectItems value="#{usuarioController.usuarios}" var="respname" itemLabel="#{respname.id}" itemValue="#{respname}" />
+                    </p:selectOneMenu>
+                    Prova:
+                    <p:selectOneMenu id="prova" value="#{resultadoController.resultado.provaidProva}" converter="provaConverter">
                         <f:selectItem itemLabel="Selecione" itemValue="" />
                         <f:selectItems value="#{provaController.provas}" var="respname" itemLabel="#{respname.id}" itemValue="#{respname}" />
                     </p:selectOneMenu>
+                    </p:panelGrid>
 
-                <p:commandButton value="Iniciar" alt="Record" /> 
-                </p:panelGrid>
+                <br/>
+                <p:commandButton value="Salvar"  
+                                 actionListener="#{resultadoController.gravar()}" onclick="record.hide()" alt="Record"/> 
+                
             </h:form>
-   </p:dialog>
-
-    <div class="card">
-        <h5 class="p-mt-0"></h5>
-        <p:tabView id="tab" rendered="true">
-            <p:tab title="Questão 1">
-                <p:selectOneRadio id="Questões1" value="#{provaController.prova.questaoList}" unselectable="false" layout="grid" columns="1" styleClass="grid-radio">
-                    <f:selectItems value=""  itemLabel="a" itemValue="#{questaoController.questao.alternativaA}"/>
-                    <f:selectItem itemLabel="b" itemValue="#{questaoController.questao.alternativaB}"/>
-                    <f:selectItem itemLabel="c" itemValue="#{questaoController.questao.alternativaC}"/>
-                    <f:selectItem itemLabel="d" itemValue="#{questaoController.questao.alternativaD}"/>
-                    <f:selectItem itemLabel="e" itemValue="#{questaoController.questao.alternativaE}"/>
-                </p:selectOneRadio>
-            </p:tab>
-            <p:tab title="Questão 2">
-                <p:selectOneRadio id="Questões2" value="#{provaController.prova.questaoList}" unselectable="false" layout="grid" columns="1" styleClass="grid-radio">
-                    <f:selectItems value="#{questaoController.questoes}"  itemLabel="a" itemValue="#{questaoController.questao.alternativaA}"/>
-                    <f:selectItem itemLabel="b" itemValue="#{questaoController.questao.alternativaB}"/>
-                    <f:selectItem itemLabel="c" itemValue="#{questaoController.questao.alternativaC}"/>
-                    <f:selectItem itemLabel="d" itemValue="#{questaoController.questao.alternativaD}"/>
-                    <f:selectItem itemLabel="e" itemValue="#{questaoController.questao.alternativaE}"/>
-                </p:selectOneRadio>
-            </p:tab>
-            <p:tab title="Questão 3">
-                <p:selectOneRadio id="Questões3" value="#{provaController.prova.questaoList}" unselectable="false" layout="grid" columns="1" styleClass="grid-radio">
-                    <f:selectItems value="#{questaoController.questoes}"  itemLabel="a" itemValue="#{questaoController.questao.alternativaA}"/>
-                    <f:selectItem itemLabel="b" itemValue="#{questaoController.questao.alternativaB}"/>
-                    <f:selectItem itemLabel="c" itemValue="#{questaoController.questao.alternativaC}"/>
-                    <f:selectItem itemLabel="d" itemValue="#{questaoController.questao.alternativaD}"/>
-                    <f:selectItem itemLabel="e" itemValue="#{questaoController.questao.alternativaE}"/>
-                </p:selectOneRadio>
-            </p:tab>
-            <p:tab title="Questão 4">
-                <p:selectOneRadio id="Questões4" value="#{provaController.prova.questaoList}" unselectable="false" layout="grid" columns="1" styleClass="grid-radio">
-                    <f:selectItems value="#{questaoController.questoes}"  itemLabel="a" itemValue="#{questaoController.questao.alternativaA}"/>
-                    <f:selectItem itemLabel="b" itemValue="#{questaoController.questao.alternativaB}"/>
-                    <f:selectItem itemLabel="c" itemValue="#{questaoController.questao.alternativaC}"/>
-                    <f:selectItem itemLabel="d" itemValue="#{questaoController.questao.alternativaD}"/>
-                    <f:selectItem itemLabel="e" itemValue="#{questaoController.questao.alternativaE}"/>
-                </p:selectOneRadio>
-            </p:tab>
-            <p:tab title="Questão 5">
-                <p:selectOneRadio id="Questões5" value="#{provaController.prova.questaoList}" unselectable="false" layout="grid" columns="1" styleClass="grid-radio">
-                    Prova
-                    <f:selectItem itemLabel="#{questaoController.questao.descricaoQuestao}" itemValue="#{questaoController.questao.alternativaA}"/>
-                    <f:selectItem itemLabel="beber" itemValue="#{questaoController.questao.alternativaB}"/>
-                    <f:selectItem itemLabel="c" itemValue="#{questaoController.questao.alternativaC}"/>
-                    <f:selectItem itemLabel="d" itemValue="#{questaoController.questao.alternativaD}"/>
-                    <f:selectItem itemLabel="e" itemValue="#{questaoController.questao.alternativaE}"/>
-                </p:selectOneRadio>
-            </p:tab>
-            <p:tab title="Resultado">
-                 <p:panel header="Confirmation">
-                    <h:panelGrid id="confirmation" columns="3" columnClasses="grid,grid,grid">
-                        <h:panelGrid columns="2" columnClasses="label, value">
-                            <h:outputText value="Questão 1: "/>
-                            <h:outputText value="" styleClass="outputLabel"/>
-
-                            <h:outputText value="Questão 2: "/>
-                            <h:outputText value="" styleClass="outputLabel"/>
-
-                            <h:outputText value="Questão 3: "/>
-                            <h:outputText value="" styleClass="outputLabel"/>
-                            
-                            <h:outputText value="Questão 4: "/>
-                            <h:outputText value="" styleClass="outputLabel"/>
-                            
-                            <h:outputText value="Questão 5: "/>
-                            <h:outputText value="" styleClass="outputLabel"/>
-                        </h:panelGrid>
-                    </h:panelGrid>
-
-                     <p:commandButton value="Finalizar" action="#{provaController.gravar}"  process="@this"/>
-                </p:panel>
-            </p:tab>
-
            
-        </p:tabView>
-    </div>
-    </h:form>
+        </p:dialog>
+
+
+        <p:dialog header="Delete" widgetVar="remove" modal="true"> 
+            <h:form>
+                Você tem certeza?
+                <p:commandButton value="Deletar"  
+                                 actionListener="#{usuarioController.remover}" onclick="remove.hide()" alt="Delete" /> 
+            </h:form>
+        </p:dialog>
+
     </ui:define>
 
 </ui:composition>
